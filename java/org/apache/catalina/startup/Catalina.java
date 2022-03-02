@@ -553,7 +553,7 @@ public class Catalina {
         // Set configuration source
         ConfigFileLoader.setSource(new CatalinaBaseConfigurationSource(Bootstrap.getCatalinaBaseFile(), getConfigFile()));
         File file = configFile();
-
+        //useGeneratedCode(false): 用生成的代码代替配置文件
         if (useGeneratedCode && !Digester.isGeneratedCodeLoaderSet()) {
             // Load loader
             String loaderClassName = generatedCodePackage + ".DigesterGeneratedCodeLoader";
@@ -700,12 +700,12 @@ public class Catalina {
 
         long t1 = System.nanoTime();
 
-        initDirs();
+        initDirs();  //空方法，在以后的版本会剔除
 
-        // Before digester - it may be needed
+        // 初始化jndi； 主要是设置了jndi的两个环境变量  Before digester - it may be needed
         initNaming();
 
-        // Parse main server.xml
+        // （解析server.xml）Parse main server.xml
         parseServerXml(true);
         Server s = getServer();
         if (s == null) {
@@ -890,7 +890,7 @@ public class Catalina {
         System.setErr(new SystemLogHandler(System.err));
     }
 
-
+    //初始化jndi的相关信息：设置了两个环境变量（ javax.naming.Context.URL_PKG_PREFIXES 和 javax.naming.Context.INITIAL_CONTEXT_FACTORY）的值
     protected void initNaming() {
         // Setting additional variables
         if (!useNaming) {

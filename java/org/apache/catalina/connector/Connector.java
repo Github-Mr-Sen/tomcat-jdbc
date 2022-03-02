@@ -54,6 +54,7 @@ import org.apache.tomcat.util.res.StringManager;
  *
  * @author Craig R. McClanahan
  * @author Remy Maucherat
+ * 每个Service中可以有多个Connect，监听不同的端口，处理不不同的请求
  */
 public class Connector extends LifecycleMBeanBase  {
 

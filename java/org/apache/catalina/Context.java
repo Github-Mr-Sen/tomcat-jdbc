@@ -57,6 +57,8 @@ import org.apache.tomcat.util.http.CookieProcessor;
  * <p>
  *
  * @author Craig R. McClanahan
+ *
+ * Context:就是一个web应用。每一个web都会封装成一个context对象
  */
 public interface Context extends Container, ContextBind {
 

@@ -220,6 +220,8 @@ public interface Server extends Lifecycle {
      * Add a new Service to the set of defined Services.
      *
      * @param service The Service to be added
+     *
+     * 从这里也可以看出，一个server可以有多个service
      */
     public void addService(Service service);
 

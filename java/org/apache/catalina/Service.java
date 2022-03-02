@@ -30,6 +30,8 @@ import org.apache.catalina.mapper.Mapper;
  * and classes on the system class path.
  *
  * @author Craig R. McClanahan
+ *
+ * 能做什么事情的范服务
  */
 public interface Service extends Lifecycle {
 

@@ -42,6 +42,9 @@ import java.util.regex.Pattern;
  * of Context (representing an individual servlet context).
  *
  * @author Craig R. McClanahan
+ *
+ * 代表每一个虚拟域名的映射
+ *
  */
 public interface Host extends Container {
 

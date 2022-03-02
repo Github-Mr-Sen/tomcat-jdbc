@@ -56,6 +56,8 @@ public class CatalinaProperties {
 
     /**
      * Load properties.
+     *
+     * 加载conf/   并将属性设置为系统的环境变量
      */
     private static void loadProperties() {
 

@@ -496,7 +496,7 @@ public class DefaultInstanceManager implements InstanceManager {
         return annotationCache.size();
     }
 
-
+    //
     protected Class<?> loadClassMaybePrivileged(final String className,
             final ClassLoader classLoader) throws ClassNotFoundException {
         Class<?> clazz;

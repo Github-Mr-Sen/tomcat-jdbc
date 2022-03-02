@@ -18,6 +18,9 @@
 <!-- Note:  A "Server" is not itself a "Container", so you may not
      define subcomponents such as "Valves" at this level.
      Documentation at /docs/config/server.html
+
+     Server: 代表整个服务器。
+        包括：①处理连接请求的连接器  ② 处理请求逻辑的selrvlet容器
  -->
 <Server port="8005" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
@@ -38,6 +41,7 @@
     <!-- Editable user database that can also be used by
          UserDatabaseRealm to authenticate users
     -->
+<!--    jndi技术，可以搜索相关内容-->
     <Resource name="UserDatabase" auth="Container"
               type="org.apache.catalina.UserDatabase"
               description="User database that can be updated and saved"
@@ -50,6 +54,12 @@
        so you may not define subcomponents such as "Valves" at this level.
        Documentation at /docs/config/service.html
    -->
+  <!--
+  真正为部署项目服务的；包括就收请求，内部逻辑处理
+扩展：
+      当然我们还可以定义自己的服务来实现不同的功能。如实现缓存的功能，甚至可以为所欲为。你爱怎么玩就怎么玩
+
+  -->
   <Service name="Catalina">
 
     <!--The connectors can use a shared executor, you can define one or more named thread pools-->
@@ -68,7 +78,8 @@
     -->
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               redirectPort="8443" />
+               URIEncoding="UTF-8"
+               redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -128,6 +139,9 @@
     <!-- You should set jvmRoute to support load-balancing via AJP ie :
     <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">
     -->
+<!--    Engine相当于调度中心，将请求按要求调度到指定位置
+        一般情况不会自己写Engine
+-->
     <Engine name="Catalina" defaultHost="localhost">
 
       <!--For clustering, please take a look at documentation at:
@@ -163,6 +177,15 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+      </Host>
+<!-- 我们自己额外添加了一个Host ，Host的域名只想lovexk.com .
+      这样我们访问lovexk.com域名的8080端口，就会到appBase(webks)文件夹下面寻找资源
+
+测试见webks文件夹下的内容： 包括静态页面和servlet
+-->
+      <Host name="lovexk.com" appBase="webks" autoDeploy="true" unpackWARs="true">
+
 
       </Host>
     </Engine>

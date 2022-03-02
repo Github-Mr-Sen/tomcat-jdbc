@@ -210,6 +210,8 @@ public interface Lifecycle {
      *
      * @exception LifecycleException if this component detects a fatal error
      *  that prevents this component from being used
+     *
+     *  组件初始化
      */
     public void init() throws LifecycleException;
 
@@ -238,6 +240,8 @@ public interface Lifecycle {
      *
      * @exception LifecycleException if this component detects a fatal error
      *  that prevents this component from being used
+     *
+     *  组件启动
      */
     public void start() throws LifecycleException;
 
@@ -272,6 +276,8 @@ public interface Lifecycle {
      *
      * @exception LifecycleException if this component detects a fatal error
      *  that needs to be reported
+     *
+     *  组件停止
      */
     public void stop() throws LifecycleException;
 
@@ -285,6 +291,9 @@ public interface Lifecycle {
      *
      * @exception LifecycleException if this component detects a fatal error
      *  that prevents this component from being used
+     *
+     *
+     *  组件销毁
      */
     public void destroy() throws LifecycleException;
 
@@ -293,6 +302,8 @@ public interface Lifecycle {
      * Obtain the current state of the source component.
      *
      * @return The current state of the source component.
+     *
+     * 获取组件状态
      */
     public LifecycleState getState();
 

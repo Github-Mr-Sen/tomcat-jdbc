@@ -158,16 +158,16 @@ public final class Bootstrap {
 
     private ClassLoader createClassLoader(String name, ClassLoader parent)
         throws Exception {
-
+        // name:
         String value = CatalinaProperties.getProperty(name + ".loader");
         if ((value == null) || (value.equals(""))) {
             return parent;
         }
-
+        // value是 ：catalinaBse和catalinaHome的路径
         value = replace(value);
 
         List<Repository> repositories = new ArrayList<>();
-
+        // path 应该获取的是catalinaBase和CatalinaHome
         String[] repositoryPaths = getPaths(value);
 
         for (String repository : repositoryPaths) {
@@ -217,7 +217,7 @@ public final class Bootstrap {
                 if (pos_end < 0) {
                     pos_end = pos_start - 1;
                     break;
-                }
+                }           //开始字符的索引+开始字符的长度 = 截掉了开始字符
                 String propName = str.substring(pos_start + 2, pos_end);
                 String replacement;
                 if (propName.length() == 0) {
@@ -225,7 +225,7 @@ public final class Bootstrap {
                 } else if (Constants.CATALINA_HOME_PROP.equals(propName)) {
                     replacement = getCatalinaHome();
                 } else if (Constants.CATALINA_BASE_PROP.equals(propName)) {
-                    replacement = getCatalinaBase();
+                    replacement = getCatalinaBase();  // 获取catalinaBase路径
                 } else {
                     replacement = System.getProperty(propName);
                 }
@@ -248,9 +248,9 @@ public final class Bootstrap {
      * @throws Exception Fatal initialization error
      */
     public void init() throws Exception {
-
+        // 创建了三个类加载器并指定父子关系
         initClassLoaders();
-
+        // 将上一步创建的classloader设置当前线程的Classloader
         Thread.currentThread().setContextClassLoader(catalinaLoader);
 
         SecurityClassLoad.securityClassLoad(catalinaLoader);
@@ -274,7 +274,7 @@ public final class Bootstrap {
         Method method =
             startupInstance.getClass().getMethod(methodName, paramTypes);
         method.invoke(startupInstance, paramValues);
-
+        // catalinaDaemon 是catalina的后台线程
         catalinaDaemon = startupInstance;
     }
 
@@ -434,6 +434,8 @@ public final class Bootstrap {
      * scripts.
      *
      * @param args Command line arguments to be processed
+     *
+     * 启动方法
      */
     public static void main(String args[]) {
 
@@ -442,7 +444,7 @@ public final class Bootstrap {
                 // Don't set daemon until init() has completed
                 Bootstrap bootstrap = new Bootstrap();
                 try {
-                    bootstrap.init();
+                    bootstrap.init(); //init() 方法：创建了三个类加载器和加载了Catalina类
                 } catch (Throwable t) {
                     handleThrowable(t);
                     t.printStackTrace();
@@ -472,7 +474,7 @@ public final class Bootstrap {
                 daemon.stop();
             } else if (command.equals("start")) {
                 daemon.setAwait(true);
-                daemon.load(args);
+                daemon.load(args);  //回调Catalina#load()方法;
                 daemon.start();
                 if (null == daemon.getServer()) {
                     System.exit(1);
